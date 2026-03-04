@@ -1,0 +1,57 @@
+{
+  "projectType": "frontend",
+  "projectName": "Requiem for Earth",
+  "projectDescription": "An animated digital invitation website for an endangered species sculpture exhibition at COBATAB Plantel #40.",
+  "theme": "almond",
+  "primaryColor": "#56877d",
+  "lightColor": "#bade57",
+  "darkColor": "#93a87e",
+  "navigation": {
+    "groups": [
+      {
+        "group": "Overview",
+        "pages": [
+          "introduction",
+          "about-exhibition"
+        ]
+      },
+      {
+        "group": "Design",
+        "pages": [
+          "design/structure",
+          "design/animations",
+          "design/styling"
+        ]
+      },
+      {
+        "group": "Development",
+        "pages": [
+          "development/setup",
+          "development/customization",
+          "development/deployment"
+        ]
+      },
+      {
+        "group": "Reference",
+        "pages": [
+          "reference/css-variables",
+          "reference/assets",
+          "reference/browser-support"
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "Animated logo and text sequences with CSS keyframe animations",
+    "Responsive design with mobile-first approach",
+    "Digital pass with QR code integration",
+    "Custom color scheme for environmental theme",
+    "Multi-section animated layout"
+  ],
+  "publicApiSurface": [
+    "CSS custom properties (--primary, --secondary, --tertiary)",
+    "Animation sequences (cbt-an1, cbt-an2, cbt-an3, lg-an1-4, last-anim)",
+    "Responsive layout classes (block, center-abs-elem, gen-cont)",
+    "Section components (COBATAB, LOGO, GENERAL blocks)"
+  ]
+}
