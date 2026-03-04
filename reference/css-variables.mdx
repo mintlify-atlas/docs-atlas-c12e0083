@@ -1,0 +1,91 @@
+---
+title: CSS Custom Properties
+description: Complete reference of CSS custom properties used in Requiem for Earth
+---
+
+## Color Variables
+
+The project uses three CSS custom properties defined in the `:root` selector for color theming.
+
+<ParamField path="--primary" type="color">
+  Primary theme color
+  
+  **Value:** `#93a87e`
+  
+  **Usage:** Primary accent color for theme
+  
+  **Color:** <span style={{backgroundColor: '#93a87e', padding: '4px 12px', borderRadius: '4px', color: 'white'}}>#93a87e</span> (Muted sage green)
+</ParamField>
+
+<ParamField path="--secondary" type="color">
+  Secondary theme color
+  
+  **Value:** `#bade57`
+  
+  **Usage:** Used for subtitle backgrounds (`.cont-subtitle`)
+  
+  **Color:** <span style={{backgroundColor: '#bade57', padding: '4px 12px', borderRadius: '4px', color: 'black'}}>#bade57</span> (Bright lime green)
+  
+  **Example:**
+  ```css
+  .cont-subtitle {
+    background-color: var(--secondary);
+  }
+  ```
+</ParamField>
+
+<ParamField path="--tertiary" type="color">
+  Tertiary theme color
+  
+  **Value:** `#56877d`
+  
+  **Usage:** Footer background and QR code border
+  
+  **Color:** <span style={{backgroundColor: '#56877d', padding: '4px 12px', borderRadius: '4px', color: 'white'}}>#56877d</span> (Teal green)
+  
+  **Example:**
+  ```css
+  .footer {
+    background-color: var(--tertiary);
+  }
+  .contqr img {
+    border: var(--tertiary) 1.6rem solid;
+  }
+  ```
+</ParamField>
+
+## Variable Reference Table
+
+| Variable | Value | Color Sample | Usage |
+|----------|-------|--------------|-------|
+| `--primary` | `#93a87e` | ![#93a87e](https://via.placeholder.com/60x20/93a87e/93a87e.png) | Primary theme accent |
+| `--secondary` | `#bade57` | ![#bade57](https://via.placeholder.com/60x20/bade57/bade57.png) | Subtitle backgrounds |
+| `--tertiary` | `#56877d` | ![#56877d](https://via.placeholder.com/60x20/56877d/56877d.png) | Footer, QR border |
+
+## Implementation
+
+All custom properties are defined in the `:root` pseudo-class in `css/styles.css:1-5`:
+
+```css
+:root {
+    --primary: #93a87e;
+    --secondary: #bade57;
+    --tertiary: #56877d;
+}
+```
+
+## Theme Customization
+
+To customize the color scheme, modify the values in the `:root` selector. All components using these variables will automatically update:
+
+```css
+:root {
+    --primary: #your-color;
+    --secondary: #your-color;
+    --tertiary: #your-color;
+}
+```
+
+## Browser Support
+
+CSS Custom Properties are supported in all modern browsers. See the [Browser Support](/reference/browser-support) page for detailed compatibility information.

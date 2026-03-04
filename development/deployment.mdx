@@ -1,0 +1,463 @@
+---
+title: 'Deployment'
+description: 'Deploy your exhibition site to production'
+---
+
+Requiem for Earth is a static site with no build process or server-side dependencies. This makes it extremely easy to deploy to any static hosting platform.
+
+## Deployment Options
+
+Choose the hosting platform that best fits your needs:
+
+<CardGroup cols={3}>
+  <Card title="GitHub Pages" icon="github" href="#github-pages">
+    Free hosting directly from your repository
+  </Card>
+  <Card title="Netlify" icon="bolt" href="#netlify">
+    Automatic deployments with drag-and-drop support
+  </Card>
+  <Card title="Vercel" icon="triangle" href="#vercel">
+    Zero-configuration deployment with Git integration
+  </Card>
+</CardGroup>
+
+## GitHub Pages
+
+Deploy directly from your GitHub repository with free hosting.
+
+### Prerequisites
+
+- GitHub account
+- Your project pushed to a GitHub repository
+
+### Deployment Steps
+
+<Steps>
+  <Step title="Push your code to GitHub">
+    If you haven't already, push your code:
+    
+    ```bash
+    git add .
+    git commit -m "Prepare for deployment"
+    git push origin main
+    ```
+  </Step>
+  
+  <Step title="Enable GitHub Pages">
+    1. Go to your repository on GitHub
+    2. Click **Settings** in the top menu
+    3. Click **Pages** in the left sidebar
+    4. Under "Source", select:
+       - **Branch:** `main`
+       - **Folder:** `/ (root)`
+    5. Click **Save**
+  </Step>
+  
+  <Step title="Wait for deployment">
+    GitHub will build and deploy your site (usually takes 1-2 minutes).
+    
+    You'll see a message:
+    ```
+    Your site is live at https://[username].github.io/[repository-name]/
+    ```
+  </Step>
+  
+  <Step title="Configure base path (if needed)">
+    If your site is deployed to a subdirectory, you may need to update asset paths.
+    
+    **Check if images load correctly.** If not, update `index.html`:
+    
+    ```html index.html
+    <!-- Change from: -->
+    <img src="./img/CobatabLogo.png" alt="COBATAB Logo">
+    
+    <!-- To: -->
+    <img src="/[repository-name]/img/CobatabLogo.png" alt="COBATAB Logo">
+    ```
+    
+    <Note>
+    Replace `[repository-name]` with your actual repository name.
+    </Note>
+  </Step>
+</Steps>
+
+### Custom Domain (Optional)
+
+To use a custom domain like `requiem.example.com`:
+
+<Steps>
+  <Step title="Add CNAME file">
+    Create a file named `CNAME` (no extension) in your project root:
+    
+    ```text CNAME
+    requiem.example.com
+    ```
+  </Step>
+  
+  <Step title="Configure DNS">
+    Add a CNAME record in your domain provider's DNS settings:
+    
+    ```
+    Type: CNAME
+    Name: requiem (or your subdomain)
+    Value: [username].github.io
+    ```
+  </Step>
+  
+  <Step title="Enable custom domain in GitHub">
+    1. Go to **Settings** > **Pages**
+    2. Under "Custom domain", enter: `requiem.example.com`
+    3. Click **Save**
+    4. Enable **Enforce HTTPS**
+  </Step>
+</Steps>
+
+## Netlify
+
+Netlify offers automatic deployments, instant rollbacks, and a global CDN.
+
+### Method 1: Drag and Drop
+
+<Steps>
+  <Step title="Create Netlify account">
+    Sign up at [netlify.com](https://www.netlify.com/) (free tier available).
+  </Step>
+  
+  <Step title="Prepare deployment folder">
+    Your entire project folder is ready to deploy as-is. No build needed.
+  </Step>
+  
+  <Step title="Drag and drop">
+    1. Log into Netlify
+    2. Go to **Sites**
+    3. Drag your project folder onto the deployment area
+    4. Wait for deployment (usually under 1 minute)
+  </Step>
+  
+  <Step title="Get your URL">
+    Netlify assigns a random URL like:
+    ```
+    https://random-name-123456.netlify.app
+    ```
+    
+    You can customize this in **Site settings** > **Change site name**.
+  </Step>
+</Steps>
+
+### Method 2: Git Integration
+
+<Steps>
+  <Step title="Connect to Git">
+    1. Click **Add new site** > **Import an existing project**
+    2. Choose your Git provider (GitHub, GitLab, Bitbucket)
+    3. Authorize Netlify to access your repositories
+    4. Select your repository
+  </Step>
+  
+  <Step title="Configure build settings">
+    Leave all settings at their defaults:
+    
+    ```
+    Base directory: (leave empty)
+    Build command: (leave empty)
+    Publish directory: /
+    ```
+    
+    <Info>
+    Since this is a static site with no build process, no build command is needed.
+    </Info>
+  </Step>
+  
+  <Step title="Deploy">
+    Click **Deploy site** and wait for the deployment to complete.
+  </Step>
+  
+  <Step title="Automatic deployments">
+    Every time you push to your main branch, Netlify automatically redeploys your site.
+  </Step>
+</Steps>
+
+### Custom Domain on Netlify
+
+<Steps>
+  <Step title="Add domain">
+    1. Go to **Site settings** > **Domain management**
+    2. Click **Add custom domain**
+    3. Enter your domain name
+  </Step>
+  
+  <Step title="Configure DNS">
+    Follow Netlify's instructions to:
+    - Add an A record pointing to Netlify's load balancer
+    - Or change your nameservers to Netlify's DNS
+  </Step>
+  
+  <Step title="Enable HTTPS">
+    Netlify automatically provisions a free SSL certificate via Let's Encrypt.
+  </Step>
+</Steps>
+
+## Vercel
+
+Vercel provides edge network deployment with automatic HTTPS and zero configuration.
+
+### Prerequisites
+
+- Vercel account ([vercel.com](https://vercel.com/))
+- Vercel CLI (optional, for command-line deployment)
+
+### Method 1: Git Integration
+
+<Steps>
+  <Step title="Import repository">
+    1. Log into Vercel
+    2. Click **Add New** > **Project**
+    3. Import your Git repository (GitHub, GitLab, or Bitbucket)
+  </Step>
+  
+  <Step title="Configure project">
+    Vercel auto-detects the project type. Leave settings at defaults:
+    
+    ```
+    Framework Preset: Other
+    Root Directory: ./
+    Build Command: (leave empty)
+    Output Directory: (leave empty)
+    ```
+  </Step>
+  
+  <Step title="Deploy">
+    Click **Deploy** and Vercel will:
+    - Deploy your site to the edge network
+    - Generate a production URL: `https://your-project.vercel.app`
+    - Set up automatic deployments for future commits
+  </Step>
+</Steps>
+
+### Method 2: Vercel CLI
+
+<Steps>
+  <Step title="Install Vercel CLI">
+    ```bash
+    npm install -g vercel
+    ```
+  </Step>
+  
+  <Step title="Login to Vercel">
+    ```bash
+    vercel login
+    ```
+    
+    Follow the prompts to authenticate.
+  </Step>
+  
+  <Step title="Deploy from project directory">
+    Navigate to your project and run:
+    
+    ```bash
+    cd Requiem-for-Earth
+    vercel
+    ```
+    
+    Answer the setup questions:
+    ```
+    ? Set up and deploy "~/Requiem-for-Earth"? [Y/n] Y
+    ? Which scope do you want to deploy to? [Your account]
+    ? Link to existing project? [y/N] N
+    ? What's your project's name? requiem-for-earth
+    ? In which directory is your code located? ./
+    ```
+  </Step>
+  
+  <Step title="Deploy to production">
+    For subsequent deployments to production:
+    
+    ```bash
+    vercel --prod
+    ```
+  </Step>
+</Steps>
+
+### Custom Domain on Vercel
+
+<Steps>
+  <Step title="Add domain">
+    1. Go to your project dashboard
+    2. Click **Settings** > **Domains**
+    3. Enter your domain name
+    4. Click **Add**
+  </Step>
+  
+  <Step title="Configure DNS">
+    Add the DNS records shown by Vercel to your domain provider:
+    
+    ```
+    Type: A
+    Name: @
+    Value: 76.76.21.21
+    
+    Type: CNAME
+    Name: www
+    Value: cname.vercel-dns.com
+    ```
+  </Step>
+  
+  <Step title="Verify and enable HTTPS">
+    Vercel automatically:
+    - Verifies domain ownership
+    - Issues SSL certificate
+    - Redirects HTTP to HTTPS
+  </Step>
+</Steps>
+
+## Alternative Hosting Options
+
+Since this is a static site, you can host it anywhere:
+
+<AccordionGroup>
+  <Accordion title="Cloudflare Pages">
+    **Features:**
+    - Global CDN
+    - Unlimited bandwidth
+    - Git integration
+    
+    **Deploy command:**
+    ```bash
+    npx wrangler pages deploy ./ --project-name=requiem-for-earth
+    ```
+  </Accordion>
+  
+  <Accordion title="Firebase Hosting">
+    **Features:**
+    - Google infrastructure
+    - Free SSL
+    - Fast global CDN
+    
+    **Deploy steps:**
+    ```bash
+    npm install -g firebase-tools
+    firebase login
+    firebase init hosting
+    firebase deploy
+    ```
+  </Accordion>
+  
+  <Accordion title="AWS S3 + CloudFront">
+    **Features:**
+    - AWS infrastructure
+    - Custom domain support
+    - Global edge locations
+    
+    **Requires:**
+    - AWS account
+    - S3 bucket configuration
+    - CloudFront distribution setup
+  </Accordion>
+  
+  <Accordion title="Traditional Web Hosting">
+    **Works with:** Any shared hosting provider (GoDaddy, Bluehost, HostGator, etc.)
+    
+    **Deploy via FTP:**
+    1. Connect to your hosting via FTP client
+    2. Upload all files to `public_html` or `www` directory
+    3. Ensure `index.html` is in the root
+    4. Verify file permissions (644 for files, 755 for directories)
+  </Accordion>
+</AccordionGroup>
+
+## Post-Deployment Checklist
+
+After deploying, verify everything works:
+
+<Steps>
+  <Step title="Test all images load">
+    - COBATAB Logo
+    - RPLT Icon and Text
+    - Exhibition banner
+    - QR code
+  </Step>
+  
+  <Step title="Verify animations">
+    Refresh the page and watch the full animation sequence (21 seconds).
+  </Step>
+  
+  <Step title="Test responsive design">
+    Open the site on:
+    - Desktop browser
+    - Tablet (or use browser DevTools)
+    - Mobile phone
+  </Step>
+  
+  <Step title="Check cross-browser compatibility">
+    Test on:
+    - Chrome/Edge (Chromium)
+    - Firefox
+    - Safari (if available)
+  </Step>
+  
+  <Step title="Scan QR code">
+    Use your phone to scan the QR code and verify it works.
+  </Step>
+  
+  <Step title="Test page load speed">
+    Use [PageSpeed Insights](https://pagespeed.web.dev/) to check performance.
+  </Step>
+</Steps>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Images not loading after deployment">
+    **Problem:** Images show broken icon or don't load.
+    
+    **Solutions:**
+    1. Check file paths are relative: `./img/filename.png`
+    2. Verify image filenames match exactly (case-sensitive)
+    3. Ensure images were uploaded to the `img/` folder
+    4. Clear browser cache (Ctrl+Shift+R / Cmd+Shift+R)
+  </Accordion>
+  
+  <Accordion title="CSS not applying">
+    **Problem:** Site appears unstyled or with default browser styles.
+    
+    **Solutions:**
+    1. Verify CSS path in `index.html` line 7-8:
+       ```html
+       <link rel="stylesheet" href="./css/normalize.css">
+       <link rel="stylesheet" href="./css/styles.css">
+       ```
+    2. Check CSS files were uploaded to `css/` folder
+    3. Hard refresh browser to clear CSS cache
+  </Accordion>
+  
+  <Accordion title="Animations not playing">
+    **Problem:** Elements appear but don't animate.
+    
+    **Solutions:**
+    1. Clear browser cache completely
+    2. Check browser console for CSS errors
+    3. Verify `css/styles.css` contains animation keyframes
+    4. Test in a different browser
+  </Accordion>
+  
+  <Accordion title="Custom domain not working">
+    **Problem:** Custom domain shows error or doesn't connect.
+    
+    **Solutions:**
+    1. DNS changes can take 24-48 hours to propagate
+    2. Verify DNS records are correct using [DNS Checker](https://dnschecker.org/)
+    3. Ensure no conflicting DNS records exist
+    4. Check domain is not expired
+  </Accordion>
+</AccordionGroup>
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="CSS Variables" icon="swatchbook" href="/reference/css-variables">
+    Complete reference of all CSS custom properties
+  </Card>
+  <Card title="Assets Reference" icon="images" href="/reference/assets">
+    Detailed specifications for all images and assets
+  </Card>
+</CardGroup>

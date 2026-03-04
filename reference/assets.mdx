@@ -1,0 +1,158 @@
+---
+title: Assets Reference
+description: Complete reference of all images and assets used in Requiem for Earth
+---
+
+## Image Assets
+
+All images are located in the `img/` directory of the project.
+
+### Logo and Branding
+
+<ParamField path="CobatabLogo.png" type="image">
+  COBATAB institution logo
+  
+  **Location:** `img/CobatabLogo.png`
+  
+  **Usage:** First animation block, appears at page load
+  
+  **CSS Class:** `.cbtlogo`
+  
+  **HTML Reference:** `index.html:15`
+  
+  **Dimensions:** Responsive - `min(28rem, 40%)` width
+  
+  **Animation:** Scales down to 0.75 and moves up after 2 seconds (cbt-an1)
+  
+  **Alt Text:** "COBATAB Logo"
+</ParamField>
+
+<ParamField path="RPLT Icon.png" type="image">
+  Requiem por la Tierra icon/logo mark
+  
+  **Location:** `img/RPLT Icon.png`
+  
+  **Usage:** Second animation block, icon portion of main logo
+  
+  **CSS Class:** `.lgicon`
+  
+  **HTML Reference:** `index.html:20`
+  
+  **Dimensions:** Responsive - `min(30rem, 40%)` width
+  
+  **Animation:** Fades in at 11s, then moves left and scales to 0.5 at 13s
+  
+  **Alt Text:** "RPLT Icono"
+</ParamField>
+
+<ParamField path="RPLT Text.png" type="image">
+  Requiem por la Tierra text/wordmark
+  
+  **Location:** `img/RPLT Text.png`
+  
+  **Usage:** Second animation block, text portion of main logo
+  
+  **CSS Class:** `.lgtext`
+  
+  **HTML Reference:** `index.html:21`
+  
+  **Dimensions:** Responsive - `min(30rem, 40%)` width
+  
+  **Animation:** Fades in at 15s with horizontal positioning
+  
+  **Alt Text:** "RPLT Texto"
+</ParamField>
+
+### Content Images
+
+<ParamField path="Requiem por la Tierra.png" type="image">
+  Main title/header image for the event
+  
+  **Location:** `img/Requiem por la Tierra.png`
+  
+  **Usage:** Content section header image
+  
+  **CSS Class:** `.cont0` container
+  
+  **HTML Reference:** `index.html:26`
+  
+  **Dimensions:** Fixed width - 20rem
+  
+  **Animation:** Fades in at 20s (last-anim)
+  
+  **Alt Text:** "RPLT"
+  
+  **Styling:** Has box shadow for depth effect
+</ParamField>
+
+<ParamField path="frame.png" type="image">
+  QR code for digital pass/ticket
+  
+  **Location:** `img/frame.png`
+  
+  **Usage:** Digital pass QR code for event access
+  
+  **CSS Class:** `.contqr` container
+  
+  **HTML Reference:** `index.html:29`
+  
+  **Dimensions:** Responsive - `min(30rem, 60%)` width
+  
+  **Animation:** Fades in at 19s (last-anim)
+  
+  **Alt Text:** "Código QR"
+  
+  **Styling:** Has 1.6rem solid border using `var(--tertiary)` color (#56877d)
+</ParamField>
+
+## Asset Reference Table
+
+| File Name | Type | Usage | CSS Class | Animation Timing |
+|-----------|------|-------|-----------|------------------|
+| `CobatabLogo.png` | Logo | Institution branding | `.cbtlogo` | 0-5s |
+| `RPLT Icon.png` | Logo | Event icon | `.lgicon` | 11-17s |
+| `RPLT Text.png` | Logo | Event wordmark | `.lgtext` | 15-17s |
+| `Requiem por la Tierra.png` | Header | Event title | `.cont0` | 20s+ |
+| `frame.png` | QR Code | Digital pass | `.contqr` | 19s+ |
+
+## Animation Timeline
+
+Assets appear in a choreographed sequence:
+
+1. **0-11s:** COBATAB logo sequence
+   - CobatabLogo.png animates and fades
+   
+2. **11-17s:** RPLT logo formation
+   - RPLT Icon.png fades in and repositions
+   - RPLT Text.png fades in
+   - Complete logo fades out
+   
+3. **19-21s:** Content reveal
+   - frame.png (QR code) fades in at 19s
+   - Requiem por la Tierra.png fades in at 20s
+   - Title "PASE DIGITAL" fades in at 20.8s
+
+## Asset Guidelines
+
+### Image Formats
+- All images use PNG format for transparency support
+- No compression settings specified in code
+
+### Responsive Sizing
+- Logo images: Use `min()` function for fluid sizing
+- Content images: Mix of fixed (rem) and responsive (%) sizing
+
+### Optimization Recommendations
+- Consider using WebP format with PNG fallback for better performance
+- Implement lazy loading for below-the-fold images
+- Ensure all images have appropriate alt text for accessibility
+
+### Accessibility
+- All images include descriptive alt text
+- Decorative images should use empty alt attributes
+- Consider adding ARIA labels for complex graphics
+
+## Related Pages
+
+- [CSS Variables](/reference/css-variables) - Color values used for borders
+- [Browser Support](/reference/browser-support) - Image format compatibility

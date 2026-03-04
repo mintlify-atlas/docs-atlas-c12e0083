@@ -1,0 +1,315 @@
+---
+title: Browser Support
+description: Browser compatibility information for Requiem for Earth
+---
+
+## Overview
+
+Requiem for Earth uses modern CSS features including animations, custom properties, and viewport units. This page documents browser compatibility and provides testing recommendations.
+
+## Core CSS Features
+
+### CSS Custom Properties (CSS Variables)
+
+<ParamField path="CSS Custom Properties" type="feature">
+  Support for `var()` and custom properties
+  
+  **Used for:** Color theming (`--primary`, `--secondary`, `--tertiary`)
+  
+  **Browser Support:**
+  - Chrome: 49+ ✓
+  - Firefox: 31+ ✓
+  - Safari: 9.1+ ✓
+  - Edge: 15+ ✓
+  - Opera: 36+ ✓
+  - iOS Safari: 9.3+ ✓
+  - Chrome Android: 49+ ✓
+  
+  **IE Support:** Not supported in IE 11 or below ✗
+  
+  **Fallback Strategy:**
+  ```css
+  /* Provide fallback for IE */
+  .footer {
+    background-color: #56877d; /* Fallback */
+    background-color: var(--tertiary); /* Modern browsers */
+  }
+  ```
+</ParamField>
+
+### CSS Animations and Keyframes
+
+<ParamField path="CSS Animations" type="feature">
+  Support for `@keyframes` and animation properties
+  
+  **Used for:** All page animations (7 keyframe sequences)
+  
+  **Browser Support:**
+  - Chrome: 43+ ✓ (4+ with -webkit- prefix)
+  - Firefox: 16+ ✓ (5+ with -moz- prefix)
+  - Safari: 9+ ✓ (4+ with -webkit- prefix)
+  - Edge: 12+ ✓
+  - Opera: 30+ ✓ (12+ with -webkit- prefix)
+  - iOS Safari: 9+ ✓ (3.2+ with -webkit- prefix)
+  - Chrome Android: 43+ ✓
+  
+  **Prefixed Support:** -webkit- prefix extends support to older mobile browsers
+  
+  **Animation Features Used:**
+  - `animation-name`
+  - `animation-duration`
+  - `animation-delay`
+  - `animation-timing-function` (ease, ease-in, ease-out, ease-in-out)
+  - `animation-fill-mode: forwards`
+</ParamField>
+
+### Transform Properties
+
+<ParamField path="CSS Transforms" type="feature">
+  Support for `transform`, `translate`, `scale`
+  
+  **Used for:** Logo positioning and scaling animations
+  
+  **Browser Support:**
+  - Chrome: 36+ ✓
+  - Firefox: 16+ ✓
+  - Safari: 9+ ✓
+  - Edge: 12+ ✓
+  - Opera: 23+ ✓
+  - iOS Safari: 9+ ✓
+  - Chrome Android: 36+ ✓
+  
+  **Transform Functions Used:**
+  - `transform: translateY()` - Vertical movement
+  - `transform: translate()` - Combined X/Y movement
+  - `scale` - Element scaling
+  - `translateX()` - Horizontal movement
+</ParamField>
+
+### Viewport Units
+
+<ParamField path="Viewport Units" type="feature">
+  Support for `vw` and `vh` units
+  
+  **Used for:** Full-screen sections (`.block` class)
+  
+  **Browser Support:**
+  - Chrome: 26+ ✓
+  - Firefox: 19+ ✓
+  - Safari: 6.1+ ✓
+  - Edge: 12+ ✓
+  - Opera: 15+ ✓
+  - iOS Safari: 6.1+ ✓
+  - Chrome Android: 26+ ✓
+  
+  **Usage:**
+  ```css
+  .block {
+    width: 100vw;
+    height: 100vh;
+  }
+  ```
+</ParamField>
+
+### Modern CSS Functions
+
+<ParamField path="min() Function" type="feature">
+  Support for CSS `min()` comparison function
+  
+  **Used for:** Responsive image sizing
+  
+  **Browser Support:**
+  - Chrome: 79+ ✓
+  - Firefox: 75+ ✓
+  - Safari: 11.1+ ✓
+  - Edge: 79+ ✓
+  - Opera: 66+ ✓
+  - iOS Safari: 11.3+ ✓
+  - Chrome Android: 79+ ✓
+  
+  **Usage:**
+  ```css
+  .cbtlogo {
+    width: min(28rem, 40%);
+  }
+  ```
+  
+  **Note:** This is the newest feature used and may require fallbacks for older browsers
+</ParamField>
+
+### Flexbox
+
+<ParamField path="Flexbox" type="feature">
+  Support for flexible box layout
+  
+  **Used for:** Content centering and alignment
+  
+  **Browser Support:**
+  - Chrome: 29+ ✓ (21+ with prefix)
+  - Firefox: 28+ ✓
+  - Safari: 9+ ✓ (6.1+ with prefix)
+  - Edge: 12+ ✓
+  - Opera: 17+ ✓
+  - iOS Safari: 9+ ✓ (7+ with prefix)
+  - Chrome Android: 29+ ✓
+  
+  **Properties Used:**
+  - `display: flex`
+  - `justify-content: center`
+  - `align-items: center`
+</ParamField>
+
+## Browser Support Summary
+
+| Browser | Minimum Version | Recommended Version | Notes |
+|---------|----------------|---------------------|-------|
+| Chrome | 79+ | Latest | Full support |
+| Firefox | 75+ | Latest | Full support |
+| Safari | 11.1+ | Latest | Full support |
+| Edge | 79+ | Latest | Full support (Chromium) |
+| Opera | 66+ | Latest | Full support |
+| iOS Safari | 11.3+ | Latest | Full support |
+| Chrome Android | 79+ | Latest | Full support |
+| Samsung Internet | 12.0+ | Latest | Full support |
+| Internet Explorer | Not supported | - | Missing custom properties and min() |
+
+## Polyfills and Fallbacks
+
+### For Internet Explorer Support
+
+If IE11 support is required, implement these strategies:
+
+```css
+/* 1. CSS Custom Properties Fallback */
+:root {
+  --primary: #93a87e;
+  --secondary: #bade57;
+  --tertiary: #56877d;
+}
+
+.footer {
+  background-color: #56877d; /* IE fallback */
+  background-color: var(--tertiary); /* Modern browsers */
+}
+
+/* 2. Use PostCSS with cssnext for automatic fallbacks */
+/* Or use css-vars-ponyfill JavaScript library */
+```
+
+### For Older Safari/iOS
+
+```css
+/* Add -webkit- prefixes for broader mobile support */
+.cbtlogo {
+  -webkit-animation: cbt-an1 3s 2s forwards ease;
+  animation: cbt-an1 3s 2s forwards ease;
+}
+
+@-webkit-keyframes cbt-an1 {
+  /* keyframe rules */
+}
+```
+
+## Testing Recommendations
+
+### Desktop Testing
+
+<Steps>
+  <Step title="Test on Major Browsers">
+    Verify animations and layout on:
+    - Chrome (latest)
+    - Firefox (latest)
+    - Safari (latest, macOS only)
+    - Edge (latest)
+  </Step>
+  
+  <Step title="Test Responsive Breakpoints">
+    Use browser DevTools to test:
+    - Desktop (1920px, 1440px, 1024px)
+    - Tablet landscape (1024px)
+    - Tablet portrait (768px)
+    - Mobile (375px, 414px)
+  </Step>
+  
+  <Step title="Test Animation Performance">
+    - Open DevTools Performance panel
+    - Record page load and animation sequence
+    - Check for dropped frames
+    - Verify smooth 60fps playback
+  </Step>
+</Steps>
+
+### Mobile Testing
+
+<Steps>
+  <Step title="iOS Testing">
+    Test on:
+    - Safari iOS (latest)
+    - iPhone (various screen sizes)
+    - iPad (portrait and landscape)
+  </Step>
+  
+  <Step title="Android Testing">
+    Test on:
+    - Chrome Android (latest)
+    - Samsung Internet
+    - Various Android screen sizes and densities
+  </Step>
+  
+  <Step title="Performance on Mobile">
+    - Test on lower-end devices
+    - Monitor animation smoothness
+    - Check image loading performance
+    - Verify touch interactions
+  </Step>
+</Steps>
+
+### Automated Testing Tools
+
+```bash
+# BrowserStack for cross-browser testing
+# LambdaTest for real device testing
+# Can I Use for feature detection
+```
+
+### Feature Detection
+
+```javascript
+// JavaScript feature detection
+if (CSS.supports('(--color: red)')) {
+  // CSS Custom Properties supported
+}
+
+if (CSS.supports('width: min(10px, 1vw)')) {
+  // min() function supported
+}
+```
+
+## Known Issues and Limitations
+
+### Internet Explorer 11
+- ✗ CSS Custom Properties not supported
+- ✗ `min()` function not supported
+- ⚠ Animations work but may need prefixes
+- ⚠ Viewport units have some bugs
+
+### Safari < 11.1
+- ✗ `min()` function not supported
+- ⚠ May need `-webkit-` prefixes for animations
+
+### Mobile Considerations
+- Viewport height (`vh`) can behave unexpectedly with browser chrome
+- Consider using `dvh` (dynamic viewport height) for modern browsers
+- Test animation performance on lower-end devices
+
+## Resources
+
+- [Can I Use](https://caniuse.com/) - Browser compatibility tables
+- [MDN Browser Compatibility Data](https://github.com/mdn/browser-compat-data)
+- [BrowserStack](https://www.browserstack.com/) - Cross-browser testing
+- [Autoprefixer](https://autoprefixer.github.io/) - Automatic vendor prefixes
+
+## Related Pages
+
+- [CSS Variables](/reference/css-variables) - Custom properties reference
+- [Assets](/reference/assets) - Image format compatibility

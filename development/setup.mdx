@@ -1,0 +1,127 @@
+---
+title: 'Local Setup'
+description: 'Set up Requiem for Earth on your local machine'
+---
+
+Requiem for Earth is a static HTML/CSS website with no build process or dependencies. You can run it directly in your browser.
+
+## Prerequisites
+
+- Git installed on your machine
+- A modern web browser (Chrome, Firefox, Safari, or Edge)
+- A text editor (VS Code, Sublime Text, etc.)
+
+## Clone the Repository
+
+<Steps>
+  <Step title="Clone the project">
+    Open your terminal and run:
+    
+    ```bash
+    git clone https://github.com/Erikdediosd/Requiem-for-Earth.git
+    cd Requiem-for-Earth
+    ```
+  </Step>
+  
+  <Step title="Verify the file structure">
+    Your project should have this structure:
+    
+    ```
+    Requiem-for-Earth/
+    ├── index.html
+    ├── css/
+    │   ├── styles.css
+    │   └── normalize.css
+    ├── img/
+    │   ├── CobatabLogo.png
+    │   ├── RPLT Icon.png
+    │   ├── RPLT Text.png
+    │   ├── Requiem por la Tierra.png
+    │   ├── frame.png
+    │   └── Panda-rojo.webp
+    └── js/
+        └── script.js
+    ```
+  </Step>
+  
+  <Step title="Open in browser">
+    Open `index.html` directly in your browser:
+    
+    **Option 1: Double-click**
+    - Navigate to the project folder
+    - Double-click `index.html`
+    
+    **Option 2: Command line**
+    ```bash
+    # macOS
+    open index.html
+    
+    # Linux
+    xdg-open index.html
+    
+    # Windows
+    start index.html
+    ```
+    
+    **Option 3: Live Server (VS Code)**
+    - Install the Live Server extension
+    - Right-click `index.html`
+    - Select "Open with Live Server"
+  </Step>
+</Steps>
+
+## Project Structure
+
+### HTML Structure
+
+The `index.html` file contains three main sections:
+
+1. **COBATAB Section** (`.first-block`) - Institution logo and invitation text
+2. **LOGO Section** (`.second-block`) - Requiem por la Tierra branding
+3. **GENERAL Section** (`.third-block`) - Event details, QR code, and exhibition information
+
+### CSS Organization
+
+- `css/normalize.css` - CSS reset for browser consistency
+- `css/styles.css` - Custom styles, animations, and color scheme
+
+### Assets
+
+- `img/` - Contains all images (logos, QR code, exhibition graphics)
+- `js/script.js` - Currently empty, available for future JavaScript functionality
+
+## Development Tips
+
+<Note>
+Since this is a static site with no build process, all changes you make to HTML, CSS, or images are immediately visible when you refresh your browser.
+</Note>
+
+### Testing Animations
+
+The site includes timed CSS animations. To see the full animation sequence:
+
+1. Open `index.html` in your browser
+2. The COBATAB logo appears first (0-10s)
+3. The RPLT logo animates in (11-17s)
+4. The main content fades in (19-21s)
+
+To restart animations, simply refresh the page.
+
+### Browser DevTools
+
+Use browser DevTools to:
+- Inspect element styles and animations
+- Test responsive behavior
+- Debug CSS timing functions
+- View animation keyframes in real-time
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Customization" icon="palette" href="/development/customization">
+    Learn how to customize colors, text, and images
+  </Card>
+  <Card title="Deployment" icon="rocket" href="/development/deployment">
+    Deploy your site to GitHub Pages, Netlify, or Vercel
+  </Card>
+</CardGroup>

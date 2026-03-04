@@ -1,0 +1,300 @@
+---
+title: 'Customization'
+description: 'Customize content, colors, and images for your exhibition'
+---
+
+Requiem for Earth is designed to be easily customizable. You can modify text, colors, images, and event details without changing the core structure.
+
+## Customizing Event Details
+
+All exhibition information is in `index.html`. Here's what you can change:
+
+### Event Date and Time
+
+Locate line 35 in `index.html`:
+
+```html index.html
+<h3 class="cont-subtitle">Fecha: 30 de Mayo, 12:99 p.m.</h3>
+<p>Te invitamos a la exposición de esculturas que representan 
+la belleza y la lucha de los animales en peligro de extinción.</p>
+```
+
+Change the date and description to match your event.
+
+### Event Location
+
+Locate line 39 in `index.html`:
+
+```html index.html
+<h3 class="cont-subtitle">Lugar: COBATAB Plantel #40</h3>
+<p>Únete a nosotros en este evento especial y forma parte en 
+la concienticación sobre la importancia de preservar nuestro planeta.</p>
+```
+
+Update the location and additional details.
+
+### Invitation Text
+
+Locate line 16 in `index.html`:
+
+```html index.html
+<h2 class="cbttext center-abs-elem">El Plantel #40 te invita al museo</h2>
+```
+
+Change the invitation message.
+
+### Footer Message
+
+Locate line 45 in `index.html`:
+
+```html index.html
+<p>Esperamos contar con tu presencia.</p>
+```
+
+Customize the closing message.
+
+## Color Customization
+
+All colors are defined using CSS custom properties in `css/styles.css` (lines 1-5):
+
+```css css/styles.css
+:root{
+    --primary: #93a87e;
+    --secondary: #bade57;
+    --tertiary: #56877d;
+}
+```
+
+### Color Usage
+
+<AccordionGroup>
+  <Accordion title="Primary Color: --primary">
+    Currently `#93a87e` (sage green)
+    
+    **Not actively used** in the current design, but available for future customization.
+  </Accordion>
+  
+  <Accordion title="Secondary Color: --secondary">
+    Currently `#bade57` (lime green)
+    
+    **Used for:**
+    - Subtitle backgrounds ("Fecha:", "Lugar:")
+    - Defined in `.cont-subtitle` class (line 202)
+    
+    ```css
+    .cont-subtitle{
+        background-color: var(--secondary);
+        display: inline-block;
+        padding: 0.8rem 1rem;
+        border-radius: 2.4rem;
+        margin-bottom: 1rem;
+    }
+    ```
+  </Accordion>
+  
+  <Accordion title="Tertiary Color: --tertiary">
+    Currently `#56877d` (teal green)
+    
+    **Used for:**
+    - QR code border (line 182)
+    - Footer background (line 209)
+    
+    ```css
+    .contqr img{
+        width: min(30rem, 60%);
+        border: var(--tertiary) 1.6rem solid;
+    }
+    
+    .footer{
+        background-color: var(--tertiary);
+        height: 10vh;
+    }
+    ```
+  </Accordion>
+</AccordionGroup>
+
+### Example: Change Color Scheme
+
+<Steps>
+  <Step title="Choose your colors">
+    Select three colors that represent your theme:
+    - Use a color picker tool
+    - Get hex codes (e.g., `#FF5733`)
+  </Step>
+  
+  <Step title="Update CSS variables">
+    Edit lines 2-4 in `css/styles.css`:
+    
+    ```css css/styles.css
+    :root{
+        --primary: #your-color-1;   /* Currently unused */
+        --secondary: #your-color-2; /* Subtitle backgrounds */
+        --tertiary: #your-color-3;  /* QR border & footer */
+    }
+    ```
+  </Step>
+  
+  <Step title="Test in browser">
+    Save the file and refresh your browser to see the changes instantly.
+  </Step>
+</Steps>
+
+## Image Replacement
+
+All images are stored in the `img/` directory. Replace them with your own images using the same filenames.
+
+### Required Images
+
+<AccordionGroup>
+  <Accordion title="CobatabLogo.png">
+    **Purpose:** Institution logo (appears first in animation)
+    
+    **Location in HTML:** Line 15
+    ```html
+    <img src="./img/CobatabLogo.png" alt="COBATAB Logo" class="cbtlogo center-abs-elem">
+    ```
+    
+    **Display size:** Maximum 28rem (280px) or 40% viewport width
+    
+    **Recommended dimensions:** 500x500px (square), PNG with transparent background
+  </Accordion>
+  
+  <Accordion title="RPLT Icon.png">
+    **Purpose:** Exhibition icon/logo (left side)
+    
+    **Location in HTML:** Line 20
+    ```html
+    <img class="lgicon center-abs-elem" src="./img/RPLT Icon.png" alt="RPLT Icono">
+    ```
+    
+    **Display size:** Maximum 30rem (300px) or 40% viewport width
+    
+    **Recommended dimensions:** 600x600px (square), PNG
+  </Accordion>
+  
+  <Accordion title="RPLT Text.png">
+    **Purpose:** Exhibition title text (right side)
+    
+    **Location in HTML:** Line 21
+    ```html
+    <img class="lgtext center-abs-elem" src="./img/RPLT Text.png" alt="RPLT Texto">
+    ```
+    
+    **Display size:** Maximum 30rem (300px) or 40% viewport width
+    
+    **Recommended dimensions:** 800x400px (horizontal), PNG with transparent background
+  </Accordion>
+  
+  <Accordion title="Requiem por la Tierra.png">
+    **Purpose:** Main exhibition banner
+    
+    **Location in HTML:** Line 26
+    ```html
+    <img src="./img/Requiem por la Tierra.png" alt="RPLT">
+    ```
+    
+    **Display size:** 20rem (200px) width
+    
+    **Recommended dimensions:** 800x300px (horizontal), PNG or JPG
+  </Accordion>
+  
+  <Accordion title="frame.png">
+    **Purpose:** QR code for digital pass
+    
+    **Location in HTML:** Line 29
+    ```html
+    <img src="./img/frame.png" alt="Código QR">
+    ```
+    
+    **Display size:** Maximum 30rem (300px) or 60% viewport width with 1.6rem border
+    
+    **Recommended dimensions:** 500x500px (square), PNG or JPG
+    
+    <Tip>Generate QR codes at [qr-code-generator.com](https://www.qr-code-generator.com/) or similar services</Tip>
+  </Accordion>
+</AccordionGroup>
+
+### Image Replacement Process
+
+<Steps>
+  <Step title="Prepare your images">
+    - Create or edit images with recommended dimensions
+    - Use PNG format for logos (transparency support)
+    - Use JPG format for photos (smaller file size)
+    - Optimize images using [TinyPNG](https://tinypng.com/) or similar tools
+  </Step>
+  
+  <Step title="Name your files">
+    Rename your images to match the original filenames exactly:
+    - `CobatabLogo.png`
+    - `RPLT Icon.png`
+    - `RPLT Text.png`
+    - `Requiem por la Tierra.png`
+    - `frame.png`
+  </Step>
+  
+  <Step title="Replace the files">
+    Copy your new images into the `img/` folder, replacing the existing ones.
+  </Step>
+  
+  <Step title="Clear browser cache">
+    Hard refresh your browser to see the new images:
+    - **Windows/Linux:** Ctrl + Shift + R
+    - **macOS:** Cmd + Shift + R
+  </Step>
+</Steps>
+
+## Font Customization
+
+The site uses the **Poppins** font family from Google Fonts (referenced in `css/styles.css` line 17).
+
+### Change Font Family
+
+<Steps>
+  <Step title="Choose a font">
+    Browse [Google Fonts](https://fonts.google.com/) and select a font.
+  </Step>
+  
+  <Step title="Add font link to HTML">
+    Add the Google Fonts link in `index.html` after line 7:
+    
+    ```html index.html
+    <link rel="stylesheet" href="./css/normalize.css">
+    <link rel="stylesheet" href="./css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Your+Font+Name:wght@300;500;600&display=swap" rel="stylesheet">
+    ```
+  </Step>
+  
+  <Step title="Update CSS">
+    Edit line 17 in `css/styles.css`:
+    
+    ```css css/styles.css
+    body{
+        font-size: 1.6rem;
+        font-family: "Your Font Name", sans-serif;
+    }
+    ```
+  </Step>
+</Steps>
+
+## Advanced Customization
+
+<Warning>
+Modifying animation timings and CSS layout requires understanding of CSS animations and keyframes. Test thoroughly after making changes.
+</Warning>
+
+### Animation Timing
+
+Animation durations and delays are defined throughout `css/styles.css`. Key animation sequences:
+
+- **COBATAB animations** (lines 47-96): 0-10 seconds
+- **RPLT logo animations** (lines 100-153): 11-17 seconds
+- **Main content fade-in** (lines 190, 220, 227): 19-21 seconds
+
+To speed up or slow down animations, adjust the `animation` property values and timing functions.
+
+## Next Steps
+
+<Card title="Deploy Your Site" icon="rocket" href="/development/deployment">
+  Ready to go live? Learn how to deploy to GitHub Pages, Netlify, or Vercel.
+</Card>

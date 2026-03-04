@@ -1,0 +1,184 @@
+---
+title: 'HTML Structure'
+description: 'Understand the three-section structure of Requiem for Earth'
+---
+
+## Overview
+
+The Requiem for Earth experience is built with a three-section HTML structure that creates a sequential, animated narrative. Each section serves a distinct purpose in the storytelling flow.
+
+## Main Sections
+
+### COBATAB Section
+
+The first section introduces the host institution with their logo and invitation message.
+
+```html index.html
+<section class="COBATAB first-block block" >
+    <img src="./img/CobatabLogo.png" alt="COBATAB Logo" class="cbtlogo center-abs-elem">
+    <h2 class="cbttext center-abs-elem">El Plantel #40 te invita al museo</h2>
+</section>
+```
+
+**Key Classes:**
+- `COBATAB` - Section identifier
+- `first-block` - Applies absolute positioning and fade-out animation
+- `block` - Sets full viewport dimensions (100vw × 100vh)
+- `cbtlogo` - Logo with scale and translation animation
+- `cbttext` - Text with color fade-in and position animation
+
+<Note>
+The `center-abs-elem` utility class centers elements absolutely within their container using auto margins.
+</Note>
+
+### LOGO Section
+
+The second section reveals the "Requiem por la Tierra" brand identity through a two-part logo animation.
+
+```html index.html
+<section class="LOGO second-block block">
+    <img class="lgicon center-abs-elem" src="./img/RPLT Icon.png" alt="RPLT Icono">
+    <img class="lgtext center-abs-elem" src="./img/RPLT Text.png" alt="RPLT Texto">
+</section>
+```
+
+**Key Classes:**
+- `LOGO` - Section identifier
+- `second-block` - (No specific styling, inherits from LOGO)
+- `lgicon` - Icon that fades in, then slides left and scales down
+- `lgtext` - Text that fades in after icon movement
+
+### GENERAL Section
+
+The third section displays the actual event information including QR code, date, location, and purpose.
+
+```html index.html
+<section class="GENERAL third-block last-anim">
+    <div class="gen-cont cont0">
+        <img src="./img/Requiem por la Tierra.png" alt="RPLT">
+    </div>
+    <div class="gen-cont contqr">
+        <img src="./img/frame.png" alt="Código QR">
+    </div>
+    <div class="gen-cont contitle">
+        <h2>PASE DIGITAL</h2>
+    </div>
+    <div class="gen-cont cont1">
+        <h3 class="cont-subtitle">Fecha: 30 de Mayo, 12:99 p.m.</h3>
+        <p>Te invitamos a la exposición de esculturas que representan la belleza y la lucha de los animales en peligro de extinción.</p>
+    </div>
+    <div class="gen-cont cont2">
+        <h3 class="cont-subtitle">Lugar: COBATAB Plantel #40</h3>
+        <p>Únete a nosotros en este evento especial y forma parte en la concienticación sobre la importancia de preservar nuestro planeta.</p>
+    </div>
+</section>
+<div class="footer last-anim">
+    <div class="gen-cont">
+        <p>Esperamos contar con tu presencia.</p>
+    </div>
+</div>
+```
+
+**Content Containers:**
+
+<Accordion title="cont0 - Logo Image">
+Displays the full logo with shadow effect. Has its own delayed fade-in animation (20s).
+
+```css
+.cont0{
+    box-shadow: 1px 13px 29px -2px rgba(0,0,0,0.25);
+    opacity: 0;
+    animation: last-anim 1s 20s forwards ease-in-out;
+}
+```
+</Accordion>
+
+<Accordion title="contqr - QR Code">
+Centers the QR code with a tertiary color border for scanning.
+
+```css
+.contqr img{
+    width: min(30rem, 60%);
+    border: var(--tertiary) 1.6rem solid;
+}
+```
+</Accordion>
+
+<Accordion title="contitle - Digital Pass Header">
+Black rounded banner with white text, fades in at 20.8s.
+
+```css
+.contitle h2{
+    padding: 2rem;
+    color: white;
+    background-color: black;
+    width: 60%;
+    border-radius: 6.4rem;
+}
+```
+</Accordion>
+
+<Accordion title="cont1 & cont2 - Event Details">
+Date and location information with styled subtitles.
+
+```css
+.cont-subtitle{
+    background-color: var(--secondary);
+    padding: 0.8rem 1rem;
+    border-radius: 2.4rem;
+    margin-bottom: 1rem;
+}
+```
+</Accordion>
+
+## Document Structure
+
+<Tabs>
+  <Tab title="HTML Head">
+    ```html
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Requiem por la Tierra</title>
+        <link rel="stylesheet" href="./css/normalize.css">
+        <link rel="stylesheet" href="./css/styles.css">
+    </head>
+    ```
+    
+    Uses normalize.css for cross-browser consistency before applying custom styles.
+  </Tab>
+  
+  <Tab title="Body Structure">
+    ```html
+    <body>
+        <header></header>
+        <main>
+            <!-- Three sections here -->
+        </main>
+    </body>
+    ```
+    
+    Minimal structure with empty header and all content in main element.
+  </Tab>
+</Tabs>
+
+## Positioning Strategy
+
+All major sections use absolute positioning with `position: absolute` to enable overlapping animations:
+
+- **COBATAB**: Positioned absolutely, fades out at 10s
+- **LOGO**: Positioned absolutely, transforms and fades at 17s
+- **GENERAL**: Static flow, fades in at 19s
+
+This creates a layered transition effect where sections appear to replace each other in the viewport.
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Animations" icon="play" href="/design/animations">
+    Learn about the 20-second animation timeline
+  </Card>
+  <Card title="Styling" icon="palette" href="/design/styling">
+    Explore CSS custom properties and responsive design
+  </Card>
+</CardGroup>

@@ -1,0 +1,329 @@
+---
+title: 'CSS Animations'
+description: 'Complete animation timeline and keyframe definitions'
+---
+
+## Animation Timeline
+
+Requiem for Earth uses a precisely orchestrated 20-second animation sequence that transitions through three distinct phases:
+
+```
+0s ────────── 2s ───── 5s ───── 10s ───── 11s ── 13s ── 15s ─── 17s ─── 19s ── 20s ── 20.8s
+│             │        │        │         │      │      │       │       │      │      │
+│             └─logo   └─text   └─fade    └─icon └─move └─text  └─exit  └─info └─logo └─title
+│               scale    fade     out       fade   icon   fade    LOGO   fade  fade  fade
+│               & move   & move            in     & scale  in     out    in    in    in
+└─ Page Load
+```
+
+## COBATAB Animations
+
+The first section uses three keyframe animations to introduce the host institution.
+
+### cbt-an1: Logo Transformation
+
+**Timing**: 3s duration, 2s delay, forwards, ease
+
+```css styles.css
+.cbtlogo{
+    width: min(28rem, 40%);
+    height: auto;
+    position: absolute;
+    animation: cbt-an1 3s 2s forwards ease;
+}
+
+@keyframes cbt-an1 {
+    0%{
+        scale: 1;
+    }
+    100%{
+        scale: 0.75;
+        transform: translateY(-45vh);
+    }
+}
+```
+
+<Note>
+**Effect**: Logo scales down to 75% and moves up 45vh to make room for the invitation text.
+</Note>
+
+### cbt-an2: Text Fade and Position
+
+**Timing**: 5s duration, 4s delay, forwards, ease
+
+```css styles.css
+.cbttext{
+    font-size: 2.2rem;
+    height: 10rem;
+    position: absolute;
+    color: transparent;
+    animation: cbt-an2 5s 4s forwards ease;
+    z-index: -1;
+}
+
+@keyframes cbt-an2 {
+    0%{
+        color: transparent;
+    }
+    25%{
+        color: black;
+        transform: translateY(0);
+    }
+    100%{
+        transform: translateY(-22vh);
+        color: black;
+    }
+}
+```
+
+**Effect Breakdown**:
+- **0% (4s)**: Text is transparent
+- **25% (5.25s)**: Text becomes visible at center
+- **100% (9s)**: Text moves up 22vh below the logo
+
+### cbt-an3: Section Fade Out
+
+**Timing**: 1s duration, 10s delay, forwards, ease-in
+
+```css styles.css
+.first-block{
+    position: absolute;
+    animation: cbt-an3 1s 10s forwards ease-in;
+}
+
+@keyframes cbt-an3 {
+    0%{
+    }
+    100%{
+        opacity: 0;
+    }
+}
+```
+
+<Note>
+At 10-11s, the entire COBATAB section fades to transparent, revealing the LOGO section beneath.
+</Note>
+
+## LOGO Animations
+
+The second section reveals the project branding through a four-part animation sequence.
+
+### lg-an1: Icon Fade In
+
+**Timing**: 1s duration, 11s delay, forwards, ease-in
+
+```css styles.css
+.lgicon{
+    width: min(30rem, 40%);
+    position: absolute;
+    animation: lg-an1 1s 11s forwards ease-in, lg-an2 2s 13s forwards ease;
+    opacity: 0;
+}
+
+@keyframes lg-an1{
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+```
+
+<Accordion title="Why Multiple Animations?">
+The icon element uses **two separate animations** applied sequentially:
+1. `lg-an1` (11-12s): Fades in the icon
+2. `lg-an2` (13-15s): Moves and scales the icon
+
+This creates a pause between appearance and movement for visual clarity.
+</Accordion>
+
+### lg-an2: Icon Translation and Scale
+
+**Timing**: 2s duration, 13s delay, forwards, ease
+
+```css styles.css
+@keyframes lg-an2 {
+    0%{
+        transform: translate(0);
+    }
+    100%{
+        transform: translate(-90%);
+        scale: 0.5;
+    }
+}
+```
+
+**Effect**: Icon slides 90% to the left and shrinks to half size, making space for the text.
+
+### lg-an3: Text Fade In
+
+**Timing**: 1s duration, 15s delay, forwards, ease-out
+
+```css styles.css
+.lgtext{
+    width: min(30rem, 40%);
+    position: absolute;
+    transform: translateX(34%);
+    animation: lg-an3 1s 15s forwards ease-out;
+    opacity: 0;
+}
+
+@keyframes lg-an3 {
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+        transform: translateX(32%);
+    }
+}
+```
+
+**Effect**: Text fades in while slightly adjusting position (34% → 32%) next to the icon.
+
+### lg-an4: Complete Logo Exit
+
+**Timing**: 2s duration, 17s delay, forwards, ease-in-out
+
+```css styles.css
+.LOGO{
+    position: absolute;
+    animation: lg-an4 2s 17s forwards ease-in-out;
+}
+
+@keyframes lg-an4 {
+    0%{
+        scale: 1;
+    }
+    75%{
+        opacity: 0;
+    }
+    100%{
+        transform: translateY(-50%);
+        scale: 0.7;
+        opacity: 0;
+    }
+}
+```
+
+**Effect Breakdown**:
+- **0% (17s)**: Full size logo
+- **75% (18.5s)**: Logo faded to transparent
+- **100% (19s)**: Logo moved up 50vh, scaled to 70%, fully transparent
+
+## GENERAL Section Animations
+
+The final section uses a single shared animation applied to multiple elements with staggered delays.
+
+### last-anim: Fade In
+
+**Keyframe Definition**:
+
+```css styles.css
+@keyframes last-anim {
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+```
+
+### Element-Specific Timing
+
+<Tabs>
+  <Tab title="Main Section">
+    ```css styles.css
+    .last-anim{
+        opacity: 0;
+        animation: last-anim 2s 19s forwards ease-in-out;
+    }
+    ```
+    
+    **Applied to**: `.GENERAL` section and `.footer`
+    
+    **Timing**: 2s duration, 19s delay → fades in from 19-21s
+  </Tab>
+  
+  <Tab title="Logo (cont0)">
+    ```css styles.css
+    .cont0{
+        opacity: 0;
+        animation: last-anim 1s 20s forwards ease-in-out;
+    }
+    ```
+    
+    **Applied to**: Logo image container only
+    
+    **Timing**: 1s duration, 20s delay → fades in from 20-21s
+  </Tab>
+  
+  <Tab title="Title (contitle)">
+    ```css styles.css
+    .contitle{
+        opacity: 0;
+        animation: last-anim 1s 20.8s forwards ease-in-out;
+    }
+    ```
+    
+    **Applied to**: "PASE DIGITAL" header
+    
+    **Timing**: 1s duration, 20.8s delay → fades in from 20.8-21.8s
+  </Tab>
+</Tabs>
+
+<Note>
+The staggered delays (19s → 20s → 20.8s) create a cascading appearance effect for the final content.
+</Note>
+
+## Animation Properties Reference
+
+### Timing Functions Used
+
+| Function | Usage | Purpose |
+|----------|-------|----------|
+| `ease` | Logo movements, text fades | Smooth acceleration and deceleration |
+| `ease-in` | Fade-outs, icon fade-in | Gradual start, quick finish |
+| `ease-out` | Text fade-in | Quick start, gradual finish |
+| `ease-in-out` | Final section fades | Smooth transitions on both ends |
+
+### Forwards Fill Mode
+
+All animations use `forwards` fill mode:
+
+```css
+animation: name duration delay forwards timing-function;
+```
+
+This ensures animated properties **persist** after completion rather than reverting to initial values.
+
+## Testing Animations
+
+To test specific animation phases:
+
+```css
+/* Skip to LOGO section */
+.first-block { animation-delay: 0s !important; animation-duration: 0s !important; }
+.lgicon { animation-delay: 1s !important; }
+
+/* Skip to GENERAL section */
+.LOGO { animation-delay: 0s !important; animation-duration: 0s !important; }
+.last-anim { animation-delay: 1s !important; }
+```
+
+<Warning>
+Do not use these overrides in production. They are for development testing only.
+</Warning>
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Structure" icon="sitemap" href="/design/structure">
+    Understand the HTML section organization
+  </Card>
+  <Card title="Styling" icon="palette" href="/design/styling">
+    Explore CSS custom properties and responsive design
+  </Card>
+</CardGroup>

@@ -1,0 +1,484 @@
+---
+title: 'CSS Styling'
+description: 'Custom properties, responsive design patterns, and styling utilities'
+---
+
+## CSS Custom Properties
+
+Requiem for Earth uses CSS variables for consistent color theming across the entire experience.
+
+```css styles.css
+:root{
+    --primary: #93a87e;
+    --secondary: #bade57;
+    --tertiary: #56877d;
+}
+```
+
+### Color Usage
+
+<Tabs>
+  <Tab title="Primary (#93a87e)">
+    **Muted Sage Green**
+    
+    Currently unused in the codebase. Reserved for potential future elements or theming.
+    
+    ```css
+    /* Example usage */
+    background-color: var(--primary);
+    ```
+  </Tab>
+  
+  <Tab title="Secondary (#bade57)">
+    **Bright Lime Green**
+    
+    Applied to subtitle badges for date and location information.
+    
+    ```css styles.css
+    .cont-subtitle{
+        background-color: var(--secondary);
+        display: inline-block;
+        padding: 0.8rem 1rem;
+        border-radius: 2.4rem;
+        margin-bottom: 1rem;
+    }
+    ```
+    
+    **Example**: "Fecha: 30 de Mayo" and "Lugar: COBATAB Plantel #40" labels
+  </Tab>
+  
+  <Tab title="Tertiary (#56877d)">
+    **Deep Teal**
+    
+    Used for footer background and QR code border.
+    
+    ```css styles.css
+    .contqr img{
+        border: var(--tertiary) 1.6rem solid;
+    }
+    
+    .footer{
+        background-color: var(--tertiary);
+    }
+    ```
+  </Tab>
+</Tabs>
+
+## Base Styles
+
+### HTML Foundation
+
+```css styles.css
+html{
+    font-size: 62.5%;
+    box-sizing: border-box;
+}
+```
+
+<Accordion title="Why 62.5% font-size?">
+Setting `font-size: 62.5%` on the HTML element makes `1rem = 10px` (assuming default browser font size of 16px).
+
+This simplifies rem calculations:
+- `1.6rem` = 16px
+- `2.2rem` = 22px
+- `3rem` = 30px
+
+This maintains accessibility (users can still change browser font size) while making development easier.
+</Accordion>
+
+### Box Model Reset
+
+```css styles.css
+*, *:before, *:after {
+  box-sizing: inherit;
+  padding: 0;
+  margin: 0;
+}
+```
+
+Applies consistent box-sizing and removes default padding/margins from all elements.
+
+### Body Typography
+
+```css styles.css
+body{
+    font-size: 1.6rem;
+    font-family: "Poppins", sans-serif;
+}
+```
+
+**Base font size**: 16px (1.6rem)  
+**Font family**: Poppins (requires external font import)
+
+## Typography Scale
+
+### Heading Weights
+
+```css styles.css
+h2{
+    font-weight: 600;
+}
+h3{
+    font-weight: 500;
+}
+p{
+    font-weight: 300;
+}
+```
+
+| Element | Weight | Usage |
+|---------|--------|-------|
+| `h2` | 600 (Semi-bold) | Main invitation text, "PASE DIGITAL" |
+| `h3` | 500 (Medium) | Subtitle badges |
+| `p` | 300 (Light) | Body text, descriptions |
+
+### Font Sizes
+
+<Tabs>
+  <Tab title="Invitation Text">
+    ```css styles.css
+    .cbttext{
+        font-size: 2.2rem;
+    }
+    ```
+    22px - Main invitation message
+  </Tab>
+  
+  <Tab title="Body Text">
+    ```css styles.css
+    body{
+        font-size: 1.6rem;
+    }
+    ```
+    16px - Default for all content
+  </Tab>
+  
+  <Tab title="Footer Text">
+    ```css styles.css
+    .footer .gen-cont p{
+        font-size: 1.8rem;
+    }
+    ```
+    18px - Slightly larger closing message
+  </Tab>
+</Tabs>
+
+## Responsive Design Patterns
+
+### The `min()` Function
+
+Requiem for Earth uses CSS `min()` extensively for fluid, responsive sizing without media queries.
+
+#### Logo Sizing
+
+```css styles.css
+.cbtlogo{
+    width: min(28rem, 40%);
+}
+
+.lgicon, .lgtext{
+    width: min(30rem, 40%);
+}
+```
+
+**Logic**: Element takes the **smaller** of:
+- Fixed size (28rem/30rem)
+- Percentage of container (40%)
+
+<Accordion title="How min() Works">
+On a **large screen** (e.g., 1920px wide):
+- 40% = 768px
+- 28rem = 280px
+- Element uses **280px** (smaller value)
+
+On a **small screen** (e.g., 375px wide):
+- 40% = 150px
+- 28rem = 280px
+- Element uses **150px** (smaller value)
+
+This creates responsive sizing without breakpoints.
+</Accordion>
+
+#### QR Code Sizing
+
+```css styles.css
+.contqr img{
+    width: min(30rem, 60%);
+    border: var(--tertiary) 1.6rem solid;
+}
+```
+
+Uses 60% (instead of 40%) for larger display on smaller screens.
+
+#### Content Padding
+
+```css styles.css
+.gen-cont{
+    padding: min(2rem, 4%) min(3rem, 6%);
+}
+```
+
+**Vertical padding**: min(20px, 4%)  
+**Horizontal padding**: min(30px, 6%)
+
+Padding scales proportionally on small screens while capping at fixed values on large screens.
+
+## Layout Utilities
+
+### Full Viewport Blocks
+
+```css styles.css
+.block{
+    width: 100vw;
+    height: 100vh;
+}
+```
+
+Applied to COBATAB and LOGO sections to fill the entire viewport during their animation phases.
+
+### Absolute Centering
+
+```css styles.css
+.center-abs-elem{
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    text-align: center;
+}
+```
+
+**Usage**: Centers logos, icons, and text within absolutely positioned sections.
+
+<Note>
+Requires `position: absolute` on the element and `position: relative` on the parent.
+</Note>
+
+### Main Container
+
+```css styles.css
+main{
+    position: relative;
+}
+```
+
+Establishes positioning context for absolutely positioned child sections (COBATAB, LOGO).
+
+## Component Styling
+
+### Content Containers
+
+#### Generic Container
+
+```css styles.css
+.gen-cont{
+    padding: min(2rem, 4%) min(3rem, 6%);
+}
+```
+
+Base class for all content blocks in the GENERAL section.
+
+#### Logo Container (cont0)
+
+```css styles.css
+.cont0{
+    box-shadow: 1px 13px 29px -2px rgba(0,0,0,0.25);
+    -webkit-box-shadow: 1px 13px 29px -2px rgba(0,0,0,0.25);
+    -moz-box-shadow: 1px 13px 29px -2px rgba(0,0,0,0.25);
+}
+
+.cont0 img{
+    width: 20rem;
+}
+```
+
+**Features**:
+- Subtle drop shadow (25% opacity black)
+- Fixed 200px image width
+- Vendor prefixes for older browsers
+
+#### Date/Location Container (cont1)
+
+```css styles.css
+.cont1{
+    padding-bottom: 0;
+}
+```
+
+Removes bottom padding to tighten spacing with cont2.
+
+### QR Code Container
+
+```css styles.css
+.contqr{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contqr img{
+    width: min(30rem, 60%);
+    border: var(--tertiary) 1.6rem solid;
+}
+```
+
+**Flexbox centering** with thick teal border (16px).
+
+### Title Banner
+
+```css styles.css
+.contitle{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.contitle h2{
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    color: white;
+    background-color: black;
+    width: 60%;
+    border-radius: 6.4rem;
+}
+```
+
+**Design**:
+- Black background with white text
+- 60% width (centered)
+- Pill shape (64px border-radius)
+- 20px padding
+
+### Subtitle Badges
+
+```css styles.css
+.cont-subtitle{
+    background-color: var(--secondary);
+    display: inline-block;
+    padding: 0.8rem 1rem;
+    border-radius: 2.4rem;
+    margin-bottom: 1rem;
+}
+```
+
+**Design**:
+- Bright lime green background (#bade57)
+- Inline-block for text wrapping
+- Rounded corners (24px)
+- 10px bottom margin
+
+### Footer
+
+```css styles.css
+.footer{
+    background-color: var(--tertiary);
+    height: 10vh;
+    display: flex;
+    align-items: center;
+}
+
+.footer .gen-cont p{
+    color: white;
+    font-size: 1.8rem;
+}
+```
+
+**Design**:
+- Deep teal background (#56877d)
+- 10% viewport height
+- Vertically centered white text (18px)
+
+## Height Management
+
+The GENERAL section uses a specific height to coordinate with the footer:
+
+```css styles.css
+.GENERAL{
+    height: 90vh;
+}
+
+.footer{
+    height: 10vh;
+}
+```
+
+Combined, they fill exactly 100vh (full viewport) without scrolling.
+
+## Browser Compatibility
+
+### Shadow Vendor Prefixes
+
+```css
+box-shadow: 1px 13px 29px -2px rgba(0,0,0,0.25);
+-webkit-box-shadow: 1px 13px 29px -2px rgba(0,0,0,0.25);
+-moz-box-shadow: 1px 13px 29px -2px rgba(0,0,0,0.25);
+```
+
+Provides fallbacks for older WebKit and Mozilla browsers.
+
+### CSS Functions Support
+
+The project uses modern CSS features:
+- `min()` function
+- CSS custom properties (variables)
+- CSS animations
+
+<Warning>
+**Minimum browser support**: Chrome 79+, Firefox 75+, Safari 13.1+, Edge 79+
+
+Consider adding fallbacks or polyfills for older browsers if required.
+</Warning>
+
+## Styling Best Practices
+
+### Maintainability Tips
+
+1. **Use CSS variables**: All colors reference `:root` variables
+2. **Responsive by default**: `min()` replaces most media queries
+3. **Consistent spacing**: All spacing uses rem units (based on 10px)
+4. **Shared animations**: `last-anim` used by multiple elements
+
+### Customization Guide
+
+<Accordion title="Change Color Scheme">
+```css
+:root{
+    --primary: #your-color-1;   /* Reserved */
+    --secondary: #your-color-2; /* Subtitle badges */
+    --tertiary: #your-color-3;  /* Footer & QR border */
+}
+```
+</Accordion>
+
+<Accordion title="Adjust Animation Speed">
+```css
+/* Speed up by 2x (divide durations and delays by 2) */
+.cbtlogo { animation: cbt-an1 1.5s 1s forwards ease; }
+.cbttext { animation: cbt-an2 2.5s 2s forwards ease; }
+/* ... update all animation timings */
+```
+</Accordion>
+
+<Accordion title="Modify Responsive Breakpoints">
+```css
+/* Make logos larger on small screens */
+.cbtlogo { width: min(28rem, 60%); } /* was 40% */
+
+/* Adjust content padding */
+.gen-cont { padding: min(3rem, 5%) min(4rem, 8%); }
+```
+</Accordion>
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Structure" icon="sitemap" href="/design/structure">
+    Review HTML section organization
+  </Card>
+  <Card title="Animations" icon="play" href="/design/animations">
+    Explore the 20-second animation timeline
+  </Card>
+</CardGroup>
